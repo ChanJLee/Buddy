@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/fragment_background">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@color/fragment_item_background"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="20dp"
+        android:gravity="center_vertical"
+        android:id="@+id/id_surprise_item_send_message">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/surprise_message"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="发布消息"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:textColor="#000000"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@color/fragment_item_background"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="20dp"
+        android:gravity="center_vertical"
+        android:id="@+id/id_surprise_item_scan">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/surprise_scan"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="扫一扫"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:textColor="#000000"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@color/fragment_item_background"
+        android:layout_marginTop="1dp"
+        android:paddingLeft="20dp"
+        android:gravity="center_vertical"
+        android:id="@+id/id_surprise_item_shake">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/surprise_shake"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="摇一摇"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:textColor="#000000"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@color/fragment_item_background"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="20dp"
+        android:gravity="center_vertical"
+        android:id="@+id/id_surprise_item_nearby">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/surprise_nearby"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="附近的人"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:textColor="#000000"/>
+    </LinearLayout>
+</LinearLayout>

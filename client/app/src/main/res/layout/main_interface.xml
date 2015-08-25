@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <!-- 黑色顶部外观 -->
+    <include layout="@layout/top_color_black"/>
+
+    <!-- 中间的翻页内容 -->
+    <android.support.v4.view.ViewPager
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/id_viewPager">
+    </android.support.v4.view.ViewPager>
+
+    <!-- 底部白色 -->
+    <include layout="@layout/bottom_color_white"/>
+</LinearLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="fragment_background">#dfdede</color>
+    <color name="name_color">#000000</color>
+    <color name="fragment_item_background">#fff</color>
+    <color name="popup_background">#353333</color>
+    <color name="activity_background">#dfdede</color>
+    <color name="activity_item_background">#fff</color>
+</resources>

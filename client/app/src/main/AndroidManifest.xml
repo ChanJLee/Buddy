@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.chan.buddy">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        android:name=".app.BuddyApplication">
+
+        <!-- ====================================================================================-->
+        <!-- 登录界面 -->
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 主界面 -->
+        <activity android:name=".main.MainInterfaceActivity"/>
+
+        <!-- hall 模块 -->
+        <!-- follow 模块 -->
+        <!-- surprise 模块 -->
+        <activity android:name=".surprise.SendMessageActivity"/>
+        <!-- profile 模块 -->
+
+        <!-- =================================================================================== -->
+        <!-- 更新完成时的接收器 -->
+        <receiver android:name=".update.UpdateActionReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+                <action android:name="com.chan.action.DOWNLOAD_REFERENCE"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- 网络状态发生变化时的接收器 -->
+        <receiver android:name=".net.ConnectivityChangedReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+        <!-- =================================================================================== -->
+
+        <!-- =================================================================================== -->
+    </application>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+</manifest>
