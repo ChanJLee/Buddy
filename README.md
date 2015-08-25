@@ -8,12 +8,14 @@ Buddy 是一款开源的软件 用于我自己练手的项目
 
 
 # 开发环境
-os: ubuntu 
+os: ubuntu 14
 jdk: 1.8
 sdk: 16
 
-# Demo
- ![image](https://github.com/ChanJLee/Buddy.git/raw/master/demo/demo1)
- ![image](https://github.com/ChanJLee/Buddy.git/raw/master/demo/demo2)
- ![image](https://github.com/ChanJLee/Buddy.git/raw/master/demo/demo3)
+#Demo 
+
+ ![image](https://github.com/ChanJLee/Buddy/raw/master/demo/demo1.png)
+
+ 
+ ![image](https://github.com/ChanJLee/Buddy/raw/master/demo/demo2.png)
 
