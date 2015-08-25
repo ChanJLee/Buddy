@@ -19,5 +19,3 @@ sdk: 16
  
  ![image](https://github.com/ChanJLee/Buddy/raw/master/demo/demo2.png)
 
- 
- ![image](https://github.com/ChanJLee/Buddy/raw/master/demo/demo3.png)
