@@ -97,14 +97,17 @@ public class ExpressionUtility {
 
         //如果要删除一个字符或者表情
         //那么我们往前查找 替换字符最长的长度
-        final int first = end - MAX_VALUE_LENGTH;
+        int first = end - MAX_VALUE_LENGTH;
 
         //如果是前面根本不够找到一个可能的字符串 那么就一定是删除一个字符
         //但是这个条件是光标不在第一个位置处
-        if (first < 0 && end != 0) {
+        if (first < 0 && end != 0 && editable.charAt(0) != '[') {
             editable.delete(end - 1, end);
             return;
         }
+
+        //如果小于0 则为0
+        if(first < 0) first = 0;
 
         //如果我们够找到一个可能的字符串 那么就试着查看一下它的值是否匹配
         String content = editable.toString();
@@ -158,8 +161,10 @@ public class ExpressionUtility {
 
             final String value = matcher.group(0);
 
+            ImageSpan imageSpan = getImageSpan(context,value);
+            if(imageSpan == null) continue;
             spannable.setSpan(
-                    getImageSpan(context, value),
+                    imageSpan,
                     start,
                     end,
                     Spanned.SPAN_INCLUSIVE_EXCLUSIVE
@@ -192,9 +197,18 @@ public class ExpressionUtility {
      * @param value 字符串
      * @return 对应的image span
      */
-    private static ImageSpan getImageSpan(@NonNull Context context,@NonNull String value){
+    private static ImageSpan getImageSpan(@NonNull Context context,@NonNull String value) {
         SparseArray<String> stringSparseArray = getSparseArray();
-        int idx = stringSparseArray.indexOfValue(value);
+
+        //因为indexOfValue默认使用 == 所以还是要深比较
+        //int idx = stringSparseArray.indexOfValue(value);
+        int idx = 0;
+        final int size = stringSparseArray.size();
+        for (; idx < size; ++idx) {
+            if(stringSparseArray.valueAt(idx).equals(value))
+                break;
+        }
+        if (idx == size) return null;
         return getImageSpan(context, stringSparseArray.keyAt(idx));
     }
 
@@ -214,15 +228,24 @@ public class ExpressionUtility {
      * @return 返回最后一个表情的开始位置
      */
     public static int isBackIsExpressionAndReturnStart(CharSequence charSequence) {
+
+        //如果是空的 那么不合法
         if (TextUtils.isEmpty(charSequence)) return -1;
 
+        //如果最后一个字符不是数字那么不合法
         final int length = charSequence.length();
-        final int start = length - MAX_VALUE_LENGTH;
-        if(start < 0) return -1;
+        final char back = charSequence.charAt(length - 1);
+        if(!Character.isDigit(back)) return -1;
 
+        //如果剩下的长度连一个表情最基本的长度都不到 也不合法
+        int start = length - MAX_VALUE_LENGTH;
+        if(start < 0) start = 0;
+
+        //如果没有找到也不合法
         Matcher matcher = s_fragmentPattern.matcher(charSequence.subSequence(start,length));
         if(!matcher.find()) return -1;
 
+        //找到了
         return length - (matcher.end() - matcher.start());
     }
 }

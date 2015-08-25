@@ -12,10 +12,8 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import com.chan.buddy.R;
 import com.chan.buddy.utility.ExpressionUtility;
-
 import java.util.ArrayList;
 import java.util.List;
 
