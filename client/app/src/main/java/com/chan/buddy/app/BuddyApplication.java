@@ -3,6 +3,8 @@ package com.chan.buddy.app;
 import android.app.Application;
 import android.content.Context;
 
+import com.chan.buddy.utility.StorageUtility;
+
 /**
  * Created by chan on 15-8-20.
  * 用于初始化应用
@@ -14,6 +16,16 @@ public class BuddyApplication extends Application {
     public void onCreate(){
         super.onCreate();
         s_context = this;
+        initStorage();
+    }
+
+    /**
+     * 创建应用要用的文件夹
+     */
+    private void initStorage(){
+        if(StorageUtility.hasSDCard()){
+            StorageUtility.initStorageUtility();
+        }
     }
 
     /**

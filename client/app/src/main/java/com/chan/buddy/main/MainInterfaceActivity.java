@@ -38,7 +38,9 @@ import java.util.List;
  * Created by chan on 15-8-21.
  * 软件主界面
  */
-public class MainInterfaceActivity extends FragmentActivity implements View.OnClickListener {
+public class MainInterfaceActivity
+        extends FragmentActivity
+        implements View.OnClickListener {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private static final short CELL_COUNT       = 4;
     private static final short CELL_HALL        = 0;

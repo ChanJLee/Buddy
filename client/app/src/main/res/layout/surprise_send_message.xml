@@ -24,10 +24,11 @@
             android:maxLength="140"/>
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:src="@drawable/surprise_add_smile"
             android:layout_gravity="right"
+            android:layout_marginRight="9dp"
             android:id="@+id/id_surprise_item_turn"/>
     </LinearLayout>
 
@@ -60,17 +61,20 @@
                 <ImageView
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:src="@drawable/surprise_add_location"/>
+                    android:src="@drawable/surprise_add_location"
+                    android:id="@+id/id_send_message_add_location"/>
 
                 <ImageView
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:src="@drawable/surprise_add_audio"/>
+                    android:src="@drawable/surprise_add_audio"
+                    android:id="@+id/id_send_message_add_audio"/>
 
                 <ImageView
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:src="@drawable/surprise_add_rideo"/>
+                    android:src="@drawable/surprise_add_video"
+                    android:id="@+id/id_send_message_add_video"/>
             </LinearLayout>
         </LinearLayout>
 

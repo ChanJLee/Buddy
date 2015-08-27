@@ -11,27 +11,27 @@
         android:layout_height="35dp"
         android:src="@drawable/back_view"
         android:id="@+id/id_back_image_view"
-        android:layout_marginLeft="1dp"
         android:layout_centerVertical="true"/>
 
-    <View
-        android:layout_width="1dp"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:background="#000"
-        android:layout_toRightOf="@+id/id_back_image_view"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"/>
+        android:text="小伙伴"
+        android:textSize="15sp"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:id="@+id/id_title_text_view"
+        android:layout_toRightOf="@+id/id_back_image_view"/>
 
     <Button
-        android:id="@+id/id_send_button"
+        android:id="@+id/id_accept_button"
         android:layout_width="48dp"
         android:layout_height="32dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:background="@drawable/small_green_background"
         android:gravity="center"
-        android:text="发送"
+        android:text="确定"
         android:textColor="#fff"
         android:textSize="14sp" />
 </RelativeLayout>

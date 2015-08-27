@@ -28,6 +28,8 @@
         <!-- follow 模块 -->
         <!-- surprise 模块 -->
         <activity android:name=".surprise.SendMessageActivity"/>
+            <!-- 摄像 -->
+        <activity android:name=".surprise.RecordVideoActivity"/>
         <!-- profile 模块 -->
 
         <!-- =================================================================================== -->
@@ -55,4 +57,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_VIDEO"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 </manifest>

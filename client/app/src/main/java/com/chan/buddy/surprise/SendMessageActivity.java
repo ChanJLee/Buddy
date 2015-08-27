@@ -1,21 +1,24 @@
 package com.chan.buddy.surprise;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.view.Display;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.chan.buddy.R;
+import com.chan.buddy.utility.DialogReleaseUtility;
 import com.chan.buddy.utility.InputMethodUtility;
-import com.chan.buddy.utility.ExpressionUtility;
 import com.chan.buddy.widget.expression.ExpressionFunctionReleaseHelper;
 
 /**
@@ -54,8 +57,26 @@ public class SendMessageActivity
      * 表情栏的父布局
      */
     private View m_expressionParent;
+    /**
+     * 存放表情
+     */
     private ViewPager m_viewPager;
+    /**
+     * 存放点
+     */
     private LinearLayout m_indicatorContainer;
+    /**
+     * 预览要发送的图片
+     */
+    private ImageView m_imageContainer;
+    /**
+     * 是否由多媒体内容
+     */
+    private boolean m_hasMultiMedia = false;
+    private boolean m_hasImage = false;
+    private boolean m_hasLocation = false;
+    private boolean m_hasAudio = false;
+    private boolean m_hasVideo = false;
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
@@ -82,6 +103,12 @@ public class SendMessageActivity
         m_expressionParent = findViewById(R.id.id_expression_parent);
         m_viewPager = (ViewPager) findViewById(R.id.id_expression_view_pager);
         m_indicatorContainer = (LinearLayout) findViewById(R.id.id_page_indicator_container);
+        findViewById(R.id.id_send_message_add_video).setOnClickListener(this);
+        findViewById(R.id.id_send_message_add_audio).setOnClickListener(this);
+        findViewById(R.id.id_send_message_add_location).setOnClickListener(this);
+        findViewById(R.id.id_back_image_view).setOnClickListener(this);
+        m_imageContainer = (ImageView) findViewById(R.id.id_send_message_add_image);
+        m_imageContainer.setOnClickListener(this);
 
         m_turnImageView.setOnClickListener(this);
         m_editText.setOnClickListener(this);
@@ -114,9 +141,94 @@ public class SendMessageActivity
             case R.id.id_send_message_edit_text:
                 onClickEditText();
                 break;
+            case R.id.id_back_image_view:
+                onClickBack();
+                break;
+            case R.id.id_send_message_add_location:
+                onClickAddLocation();
+                break;
+            case R.id.id_send_message_add_audio:
+                onClickAddAudio();
+                break;
+            case R.id.id_send_message_add_video:
+                onClickAddVideo();
+                break;
+            case R.id.id_send_message_add_image:
+                onClickAddImage();
+                break;
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        onClickBack();
+    }
+
+    /**
+     * 当返回键按下时
+     */
+    private void onClickBack(){
+
+        //如果文本没有 多媒体文件页没有 那么就直接返回
+        if(m_editText.getText().length() == 0 && !m_hasMultiMedia){
+            finish();
+            return;
+        }
+
+        DialogReleaseUtility.ButtonInfoHolder accept = new DialogReleaseUtility.
+                ButtonInfoHolder("确定",new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SendMessageActivity.this.finish();
+            }
+        });
+
+        DialogReleaseUtility.ButtonInfoHolder cancel = new DialogReleaseUtility.
+                ButtonInfoHolder("取消",new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        Dialog dialog = DialogReleaseUtility.releaseDialog(
+                this,
+                null,
+                "提示",
+                "您有未保存的内容,确定退出吗?",
+                false,
+                accept,
+                cancel
+        );
+        dialog.show();
+    }
+
+    /**
+     * 当对应的 添加 图片 定位 声音 视频按钮按下是调用的
+     */
+
+    private final short REQUEST_IMAGE = 0x0521;
+    private final short REQUEST_LOCATION = 0x0522;
+    private final short REQUEST_VIDEO = 0x0523;
+    private final short REQUEST_AUDIO = 0x0524;
+
+    private void onClickAddImage(){
+
+    }
+
+    private void onClickAddLocation(){
+
+    }
+
+    private void onClickAddVideo() {
+        Intent intent = RecordVideoActivity.getIntent(this);
+        startActivityForResult(intent, REQUEST_VIDEO);
+    }
+
+    private void onClickAddAudio(){
+
     }
 
     /**

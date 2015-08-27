@@ -7,5 +7,6 @@
     <dimen name="popup_window_x_offset">10dp</dimen>
     <dimen name="popup_window_y_offset">15dp</dimen>
     <dimen name="smile_board_height">140dp</dimen>
+    <dimen name="activity_item_height">45dp</dimen>
 
 </resources>
