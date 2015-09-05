@@ -8,5 +8,8 @@
     <dimen name="popup_window_y_offset">15dp</dimen>
     <dimen name="smile_board_height">140dp</dimen>
     <dimen name="activity_item_height">45dp</dimen>
-
+    <dimen name="drawable_ring_size">4dp</dimen>
+    <dimen name="preview_size">5dp</dimen>
+    <dimen name="scan_width">250dp</dimen>
+    <dimen name="qr_width">250dp</dimen>
 </resources>

@@ -9,6 +9,9 @@ import android.view.SurfaceHolder;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by chan on 15-8-26.
@@ -38,27 +41,26 @@ public class CameraUtility {
 
     /**
      * 获得录制录像的media recorder
+     *
      * @param camera
      * @param surfaceHolder
-     * @param out 输出文件
+     * @param out           输出文件
      * @return
      */
     @SuppressWarnings("deprecated")
     public static MediaRecorder getMediaRecorder(@NonNull Camera camera,
                                                  @NonNull SurfaceHolder surfaceHolder,
                                                  @NonNull File out,
-                                                 boolean isBackCamera,
-                                                 int maxDuration){
+                                                 boolean isBackCamera) {
 
-        if(camera == null) return null;
+        if (camera == null) return null;
 
         MediaRecorder mediaRecorder = new MediaRecorder();
-
         camera.stopPreview();
         camera.unlock();
         mediaRecorder.setCamera(camera);
 
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
         mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
 
         CamcorderProfile camcorderProfile = null;
@@ -67,25 +69,27 @@ public class CameraUtility {
             camcorderProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_LOW);
         else if(CamcorderProfile.hasProfile(CamcorderProfile.QUALITY_480P))
             camcorderProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_480P);
+        else if(CamcorderProfile.hasProfile(CamcorderProfile.QUALITY_720P))
+            camcorderProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_720P);
+        else camcorderProfile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
 
         try {
             mediaRecorder.setProfile(camcorderProfile);
             mediaRecorder.setOutputFile(out.getAbsolutePath());
 
-            if(isBackCamera)
+            if (isBackCamera)
                 mediaRecorder.setOrientationHint(90);
             else mediaRecorder.setOrientationHint(270);
 
             //防止录制过短而崩溃
             mediaRecorder.setOnErrorListener(null);
+            mediaRecorder.setOnInfoListener(null);
             mediaRecorder.setPreviewDisplay(surfaceHolder.getSurface());
-            mediaRecorder.setMaxDuration(maxDuration);
             mediaRecorder.prepare();
         } catch (Exception e) {
             mediaRecorder.release();
             return null;
         }
-
         return mediaRecorder;
     }
 }

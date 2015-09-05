@@ -7,14 +7,22 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.view.Display;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.chan.buddy.R;
 import com.chan.buddy.utility.DialogReleaseUtility;
@@ -73,10 +81,15 @@ public class SendMessageActivity
      * 是否由多媒体内容
      */
     private boolean m_hasMultiMedia = false;
-    private boolean m_hasImage = false;
-    private boolean m_hasLocation = false;
-    private boolean m_hasAudio = false;
-    private boolean m_hasVideo = false;
+
+    private short m_currentMediaType = TYPE_TEXT;
+    private String m_mediaData;
+    private static final short TYPE_TEXT = 0x0521;
+    private static final short TYPE_IMAGE = 0x0522;
+    private static final short TYPE_LOCATION = 0x0523;
+    private static final short TYPE_AUDIO = 0x0524;
+    private static final short TYPE_VIDEO = 0x0525;
+    private TextView m_mediaPrevTextView;
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
@@ -103,6 +116,7 @@ public class SendMessageActivity
         m_expressionParent = findViewById(R.id.id_expression_parent);
         m_viewPager = (ViewPager) findViewById(R.id.id_expression_view_pager);
         m_indicatorContainer = (LinearLayout) findViewById(R.id.id_page_indicator_container);
+        m_mediaPrevTextView = (TextView) findViewById(R.id.id_send_message_prev);
         findViewById(R.id.id_send_message_add_video).setOnClickListener(this);
         findViewById(R.id.id_send_message_add_audio).setOnClickListener(this);
         findViewById(R.id.id_send_message_add_location).setOnClickListener(this);
@@ -214,8 +228,9 @@ public class SendMessageActivity
     private final short REQUEST_VIDEO = 0x0523;
     private final short REQUEST_AUDIO = 0x0524;
 
-    private void onClickAddImage(){
-
+    private void onClickAddImage() {
+        Intent intent = SelectImagesActivity.getIntent(this);
+        startActivityForResult(intent, REQUEST_IMAGE);
     }
 
     private void onClickAddLocation(){
@@ -228,7 +243,8 @@ public class SendMessageActivity
     }
 
     private void onClickAddAudio(){
-
+        Intent intent = RecordAudioActivity.getIntent(this);
+        startActivityForResult(intent, REQUEST_AUDIO);
     }
 
     /**
@@ -290,5 +306,103 @@ public class SendMessageActivity
      */
     private void hideSmileBoard(){
         m_expressionParent.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQUEST_VIDEO && resultCode == RESULT_OK){
+            onVideoResult(data);
+            return;
+        }
+
+        if(requestCode == REQUEST_AUDIO && resultCode == RESULT_OK){
+            onAudioResult(data);
+            return;
+        }
+
+        if(requestCode == REQUEST_IMAGE && resultCode == RESULT_OK){
+            onImageResult(data);
+            return;
+        }
+
+        if(requestCode == REQUEST_LOCATION && resultCode == RESULT_OK){
+            onLocationResult(data);
+            return;
+        }
+    }
+
+    private void onImageResult(Intent data){
+        String fileName = data.getStringExtra(SelectImagesActivity.EXTRA_DATA);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.outWidth = m_imageContainer.getWidth();
+        options.outHeight = m_imageContainer.getHeight();
+        options.inJustDecodeBounds = false;
+        Bitmap bitmap = BitmapFactory.decodeFile(fileName,options);
+        m_imageContainer.setImageBitmap(bitmap);
+        setMediaType(TYPE_IMAGE);
+    }
+
+    //没有保存路径//******************************************************************
+    private void onAudioResult(Intent data){
+        addMediaPrev(R.drawable.ic_keyboard_voice_grey600_48dp);
+        setMediaType(TYPE_AUDIO);
+    }
+
+    private void onLocationResult(Intent data){
+        addMediaPrev(R.drawable.ic_place_grey600_48dp);
+        setMediaType(TYPE_LOCATION);
+    }
+
+    /** 当录制视频返回后
+     * @param data
+     */
+    private void onVideoResult(Intent data) {
+        m_mediaData = data.getStringExtra(RecordVideoActivity.EXTRA_FILE_NAME);
+
+        Bitmap thumbnail =  ThumbnailUtils.createVideoThumbnail(
+                m_mediaData,
+                MediaStore.Images.Thumbnails.MINI_KIND
+        );
+
+        if(thumbnail != null)
+            addMediaPrev(thumbnail);
+        else addMediaPrev(R.drawable.ic_videocam_grey600_48dp);
+
+        setMediaType(TYPE_VIDEO);
+    }
+
+    /**
+     * @param bitmap 用于预览的多媒体图片
+     */
+    private void addMediaPrev(Bitmap bitmap) {
+        ImageSpan imageSpan = new ImageSpan(this, bitmap);
+        addMediaPrev(imageSpan);
+    }
+
+    private void addMediaPrev(int resourceId) {
+        ImageSpan imageSpan = new ImageSpan(this, resourceId);
+        addMediaPrev(imageSpan);
+    }
+
+    private void addMediaPrev(ImageSpan imageSpan) {
+        if(m_mediaPrevTextView.getVisibility() != View.VISIBLE)
+            m_mediaPrevTextView.setVisibility(View.VISIBLE);
+
+        SpannableString spannableString = new SpannableString(" ");
+        spannableString.setSpan(
+                imageSpan,
+                0,
+                spannableString.length(),
+                Spanned.SPAN_INCLUSIVE_EXCLUSIVE
+        );
+        m_mediaPrevTextView.setText(spannableString);
+    }
+
+    /** 设置多媒体类型
+     * @param type {@link SendMessageActivity#TYPE_AUDIO}
+     * {@link SendMessageActivity#TYPE_IMAGE} etc
+     */
+    private void setMediaType(short type){
+        m_currentMediaType |= type;
     }
 }

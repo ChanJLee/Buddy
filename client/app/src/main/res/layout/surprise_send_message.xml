@@ -21,7 +21,8 @@
             android:textSize="15sp"
             android:gravity="top"
             android:id="@+id/id_send_message_edit_text"
-            android:maxLength="140"/>
+            android:maxLength="140"
+            android:bufferType="spannable"/>
 
         <ImageView
             android:layout_width="25dp"
@@ -46,10 +47,11 @@
                 android:layout_width="fill_parent"
                 android:layout_height="70dp">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:src="@drawable/surprise_add_image"
-                    android:id="@+id/id_send_message_add_image"/>
+                    android:id="@+id/id_send_message_add_image"
+                    android:layout_marginLeft="20dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -119,4 +121,12 @@
             </LinearLayout>
         </FrameLayout>
     </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/id_send_message_prev"
+        android:visibility="gone"
+        android:background="@drawable/send_message_preview"
+        android:gravity="center"/>
 </LinearLayout>

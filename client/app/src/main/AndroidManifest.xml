@@ -9,7 +9,7 @@
         android:theme="@style/AppTheme"
         android:name=".app.BuddyApplication">
 
-        <!-- ====================================================================================-->
+        <!-- =================================================================================== -->
         <!-- 登录界面 -->
         <activity
             android:name=".MainActivity"
@@ -26,11 +26,25 @@
 
         <!-- hall 模块 -->
         <!-- follow 模块 -->
+
+
         <!-- surprise 模块 -->
         <activity android:name=".surprise.SendMessageActivity"/>
             <!-- 摄像 -->
         <activity android:name=".surprise.RecordVideoActivity"/>
+            <!-- 录像 -->
+        <activity android:name=".surprise.RecordAudioActivity"/>
+            <!-- 选择图片 -->
+        <activity android:name=".surprise.SelectImagesActivity"/>
+            <!-- 扫描二维码 -->
+        <activity android:name=".zxing.activity.CaptureActivity"/>
+
         <!-- profile 模块 -->
+            <!-- 设置资料 -->
+        <activity android:name=".profile.ProfileActivity"/>
+            <!-- 展示自己的二维码 -->
+        <activity android:name=".profile.QRShowActivity"/>
+
 
         <!-- =================================================================================== -->
         <!-- 更新完成时的接收器 -->
@@ -48,7 +62,8 @@
             </intent-filter>
         </receiver>
         <!-- =================================================================================== -->
-
+        <!-- 提供播放音频,录音功能 -->
+        <service android:name=".service.AudioService" android:exported="false"/>
         <!-- =================================================================================== -->
     </application>
 
@@ -60,5 +75,19 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.RECORD_VIDEO"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <!-- 感谢如下开源项目 -->
+        <!--
+            CircularProgressDrawable
+            https://github.com/Sefford/CircularProgressDrawable
+        -->
+        <!--
+            zxing 提供二维码功能
+        -->
+
+
 </manifest>

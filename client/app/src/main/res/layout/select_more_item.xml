@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="100dp">
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/pic_dir"
+        android:scaleType="centerCrop"
+        android:padding="8dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/id_preview"/>
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:paddingLeft="10dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:text="文件名"
+            android:layout_centerVertical="true"
+            android:id="@+id/id_dir_name"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="有0张"
+            android:textSize="10sp"
+            android:id="@+id/id_file_count"
+            android:layout_below="@+id/id_dir_name"/>
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/accept"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/id_accept_tag"/>
+    </RelativeLayout>
+</LinearLayout>

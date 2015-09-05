@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -22,6 +23,8 @@ import com.chan.buddy.R;
 import com.chan.buddy.utility.CameraUtility;
 import com.chan.buddy.utility.DialogReleaseUtility;
 import com.chan.buddy.utility.StorageUtility;
+
+import java.io.IOException;
 
 /**
  * Created by chan on 15-8-26.
@@ -33,10 +36,11 @@ public class RecordVideoActivity extends Activity
     private static final short MAX_PROGRESS = 100;
     private static final short COUNT_TIME = 10000;
     private static final short INTERVAL = 1000;
-    public static final String FILE_NAME = "record_video_activity";
+    public static final String EXTRA_FILE_NAME = "record_video_activity";
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private PowerManager.WakeLock m_wakeLock;
     private ProgressBar m_progressBar;
+    private Button m_acceptButton;
     /**
      * 转换摄像头
      */
@@ -108,7 +112,8 @@ public class RecordVideoActivity extends Activity
         m_switchCamera.setOnClickListener(this);
         m_recordImageView.setOnClickListener(this);
         findViewById(R.id.id_back_image_view).setOnClickListener(this);
-        findViewById(R.id.id_accept_button).setOnClickListener(this);
+        m_acceptButton = (Button) findViewById(R.id.id_accept_button);
+        m_acceptButton.setOnClickListener(this);
         m_recordImageView.setEnabled(false);
 
         SurfaceHolder holder = m_surfaceView.getHolder();
@@ -146,10 +151,17 @@ public class RecordVideoActivity extends Activity
         }
     }
 
+    private boolean isRecording(){
+        return m_mediaRecorder != null;
+    }
+
     private void onAcceptClick(){
+
+        if(isRecording()) stopRecord();
+
         if(m_hasRecorded) {
             Intent intent = new Intent();
-            intent.putExtra(FILE_NAME, StorageUtility.getVideoTempFile().getAbsolutePath());
+            intent.putExtra(EXTRA_FILE_NAME, StorageUtility.getVideoTempFile().getAbsolutePath());
             setResult(RESULT_OK, intent);
             finish();
             return;
@@ -177,17 +189,17 @@ public class RecordVideoActivity extends Activity
                     90,
                     m_surfaceView.getHolder()
             );
-            m_camera.startPreview();
-            return;
+        }
+        else{
+            //如果是前置摄像头
+            m_isBackCamera = true;
+            m_camera = CameraUtility.getCamera(
+                    Camera.CameraInfo.CAMERA_FACING_BACK,
+                    90,
+                    m_surfaceView.getHolder()
+            );
         }
 
-        //如果是前置摄像头
-        m_isBackCamera = true;
-        m_camera = CameraUtility.getCamera(
-                Camera.CameraInfo.CAMERA_FACING_BACK,
-                90,
-                m_surfaceView.getHolder()
-        );
         m_camera.startPreview();
     }
 
@@ -195,6 +207,9 @@ public class RecordVideoActivity extends Activity
      * 当返回键按下时触发
      */
     private void onBackClick(){
+
+        if(isRecording()) stopRecord();
+
         if(!m_hasRecorded){
             setResult(RESULT_CANCELED);
             finish();
@@ -248,13 +263,12 @@ public class RecordVideoActivity extends Activity
                 m_camera,
                 m_surfaceView.getHolder(),
                 StorageUtility.getVideoTempFile(),
-                m_isBackCamera,
-                10000
+                m_isBackCamera
         );
-
         if(m_mediaRecorder == null) return;
         m_mediaRecorder.start();
         m_countDownTimer.start();
+        m_acceptButton.setEnabled(false);
         m_switchCamera.setEnabled(false);
         m_recordImageView.setImageResource(R.drawable.video_recorder_stop_btn);
     }
@@ -263,7 +277,8 @@ public class RecordVideoActivity extends Activity
      * 暂停录制
      */
     private void stopRecord(){
-        if(m_mediaRecorder == null) return;;
+        if(m_mediaRecorder == null) return;
+        m_acceptButton.setEnabled(true);
         m_mediaRecorder.stop();
         m_mediaRecorder.reset();
         m_mediaRecorder.release();
@@ -313,13 +328,15 @@ public class RecordVideoActivity extends Activity
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {}
 
+    @SuppressWarnings("deprecated")
     @Override
     protected void onResume() {
         super.onResume();
 
         PowerManager powerManager = (PowerManager)
                 getSystemService(Context.POWER_SERVICE);
-        m_wakeLock = powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK,"chan_lock");
+        m_wakeLock = powerManager.newWakeLock(
+                PowerManager.SCREEN_BRIGHT_WAKE_LOCK,"chan_lock");
         m_wakeLock.acquire();
     }
 

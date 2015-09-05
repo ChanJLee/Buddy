@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <SurfaceView
+        android:id="@+id/preview_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"/>
+
+    <com.chan.buddy.zxing.view.ViewfinderView
+        android:id="@+id/viewfinder_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </com.chan.buddy.zxing.view.ViewfinderView>
+
+    <FrameLayout
+        android:layout_width="@dimen/scan_width"
+        android:layout_height="@dimen/scan_width"
+        android:layout_gravity="center"
+        android:id="@+id/id_preview_window">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/a3d"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/a3e"
+            android:layout_gravity="right"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/a3f"
+            android:layout_gravity="bottom"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/a3g"
+            android:layout_gravity="bottom|right"/>
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:src="@drawable/scan_line"
+            android:id="@+id/id_scan"
+            android:layout_gravity="center_horizontal"/>
+    </FrameLayout>
+
+    <include layout="@layout/simple_top"/>
+</FrameLayout>

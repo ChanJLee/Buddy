@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+        <include layout="@layout/accept_top"/>
+        <com.chan.buddy.surprise.views.ImageGridView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:numColumns="3"
+            android:verticalSpacing="8dp"
+            android:horizontalSpacing="8dp"
+            android:stretchMode="columnWidth"
+            android:id="@+id/id_preview_grid_view"
+            android:background="#000">
+        </com.chan.buddy.surprise.views.ImageGridView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="#717171"
+        android:orientation="horizontal"
+        android:id="@+id/id_bottom">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/id_more_image"
+            android:text="更多图片"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:layout_marginLeft="10dp"/>
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/angle"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="预览"
+            android:textColor="#ada7a7"
+            android:paddingRight="10dp"
+            android:gravity="right|center"
+            android:id="@+id/id_preview_text_view"/>
+    </LinearLayout>
+</FrameLayout>

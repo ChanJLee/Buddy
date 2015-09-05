@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <include layout="@layout/simple_top"/>
+    <ImageView
+        android:layout_width="@dimen/qr_width"
+        android:layout_height="@dimen/qr_width"
+        android:layout_centerInParent="true"
+        android:id="@+id/id_show_qr"/>
+</RelativeLayout>

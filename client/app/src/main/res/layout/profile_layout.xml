@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/activity_background">
+
+    <include layout="@layout/simple_top"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:background="@color/activity_item_background"
+        android:paddingRight="10dp"
+        android:paddingLeft="20dp">
+
+
+        <include layout="@layout/profile_layout_item_image"/>
+        <include layout="@layout/gray_line"/>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵称"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="super idol 1.85"
+                android:id="@+id/id_name"/>
+        </RelativeLayout>
+        <include layout="@layout/gray_line"/>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="小伙伴号"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="beyondTheVoid"
+                android:id="@+id/id_id"/>
+        </RelativeLayout>
+        <include layout="@layout/gray_line"/>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45dp"
+            android:id="@+id/id_qr">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="二维码名片"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:layout_centerVertical="true"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/a_8"/>
+        </RelativeLayout>
+        <include layout="@layout/gray_line"/>
+
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的地址"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text=""
+                android:id="@+id/id_address_text"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="20dp"
+        android:background="@color/activity_item_background">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="性别"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="男"
+                android:id="@+id/id_sex"/>
+        </RelativeLayout>
+        <include layout="@layout/gray_line"/>
+
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="地区"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="江苏 南京"
+                android:id="@+id/id_location"/>
+        </RelativeLayout>
+        <include layout="@layout/gray_line"/>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="45dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="个性签名"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="我告别山 告别水 却不敢告别你"
+                android:id="@+id/id_sign"/>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

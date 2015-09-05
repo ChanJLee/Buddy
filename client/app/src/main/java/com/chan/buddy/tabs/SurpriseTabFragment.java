@@ -1,14 +1,18 @@
 package com.chan.buddy.tabs;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.chan.buddy.R;
 import com.chan.buddy.surprise.SendMessageActivity;
+import com.chan.buddy.zxing.activity.CaptureActivity;
 
 /**
  * Created by chan on 15-8-21.
@@ -16,6 +20,9 @@ import com.chan.buddy.surprise.SendMessageActivity;
  */
 public class SurpriseTabFragment extends Fragment
     implements View.OnClickListener{
+
+    private static final int REQUEST_QR = 0x0521;
+
     @Override
     public View onCreateView(LayoutInflater layoutInflater,ViewGroup viewGroup,Bundle bundle) {
         View contentView = layoutInflater.inflate(R.layout.surprise_tag, viewGroup, false);
@@ -69,7 +76,9 @@ public class SurpriseTabFragment extends Fragment
      * 用于响应点击扫一扫按钮
      */
     private void onClickScan(){
-
+        //startActivity(ScanQRActivity.getIntent(getContext()));
+        Intent intent = CaptureActivity.getIntent(getContext());
+        startActivityForResult(intent,REQUEST_QR);
     }
 
     /**
@@ -84,5 +93,13 @@ public class SurpriseTabFragment extends Fragment
      */
     private void onClickNearby(){
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQUEST_QR && resultCode == Activity.RESULT_OK){
+            String result = data.getStringExtra(CaptureActivity.EXTRA_RESULT);
+            Toast.makeText(getContext(),result,Toast.LENGTH_SHORT).show();
+        }
     }
 }

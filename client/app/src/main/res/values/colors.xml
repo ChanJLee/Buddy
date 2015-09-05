@@ -6,4 +6,9 @@
     <color name="popup_background">#353333</color>
     <color name="activity_background">#dfdede</color>
     <color name="activity_item_background">#fff</color>
+    <color name="result_view">#b0000000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="viewfinder_frame">#ff000000</color>
+    <color name="viewfinder_laser">#ffff0000</color>
 </resources>

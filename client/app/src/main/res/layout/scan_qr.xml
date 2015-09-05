@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#9b9a9a">
+
+    <include layout="@layout/simple_top"/>
+
+    <FrameLayout
+        android:layout_width="@dimen/scan_width"
+        android:layout_height="@dimen/scan_width"
+        android:layout_centerInParent="true">
+
+        <SurfaceView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/id_surface_view"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/a3d"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/a3e"
+            android:layout_gravity="right"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/a3f"
+            android:layout_gravity="bottom"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/a3g"
+            android:layout_gravity="bottom|right"/>
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:src="@drawable/scan_line"
+            android:id="@+id/id_scan"
+            android:layout_gravity="center_horizontal"/>
+    </FrameLayout>
+</RelativeLayout>
