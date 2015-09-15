@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <servlet>
+        <servlet-name>SignInServlet</servlet-name>
+        <servlet-class>SignIn.SignInServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SignInServlet</servlet-name>
+        <url-pattern>/signIn</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SignUpServlet</servlet-name>
+        <servlet-class>signUp.SignUpServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SignUpServlet</servlet-name>
+        <url-pattern>/signUp</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>gzip</filter-name>
+        <filter-class>filter.GzipFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>gzip</filter-name>
+        <url-pattern>/signUp</url-pattern>
+    </filter-mapping>
+
+    <!--
+
+        CREATE TABLE USER(
+            NAME VARCHAR(20) NOT NULL,
+            USER_NAME CHAR(11) NOT NULL,
+            PASS_WORD char(20) NOT NULL,
+            SIGN_UP_DATE DATE NOT NULL,
+            SEX CHAR(4) NULL,
+            AGE INT NULL,
+            BIRTHDAY DATE NULL,
+            ADDRESS CHAR(40) NULL,
+            SIGNATURE varchar(20) NULL,
+            PRIMARY KEY (USER_NAME)
+        );
+
+
+        INSERT INTO USER(NAME,USER_NAME,SIGN_UP_DATE,SEX,AGE) VALUE('李嘉诚','17751759315','20150901','男',22);
+    -->
+</web-app>

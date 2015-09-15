@@ -25,7 +25,7 @@ public class GridLayoutAdapter extends UniversalImageLoadAdapter {
     private String[] m_items;
 
     public GridLayoutAdapter(Context context,String dir, String[] items,int width) {
-        super(context,width,width,-1);
+        super(context);
         m_dir = dir;
         m_items = items;
     }
@@ -72,7 +72,7 @@ public class GridLayoutAdapter extends UniversalImageLoadAdapter {
         viewHolder.m_fileName = m_dir + File.separator + m_items[position - 1];
         viewHolder.m_content.setScaleType(ImageView.ScaleType.CENTER_CROP);
         viewHolder.m_selectTag.setVisibility(View.VISIBLE);
-        viewHolder.m_content.setImageBitmap(getBitmap(viewHolder.m_fileName));
+        displayBitmap(viewHolder.m_fileName,viewHolder.m_content);
         return convertView;
     }
 

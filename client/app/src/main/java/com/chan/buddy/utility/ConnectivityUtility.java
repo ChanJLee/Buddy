@@ -26,7 +26,7 @@ public class ConnectivityUtility {
     public static final short TYPE_OTHER = 0x000f;
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private static ConnectivityManager s_connectivityManager = null;
-
+    private static final String BASE_ADDRESS = "http://192.168.1.220:8080/";
     /**
      * @param context 上下文
      * @return 返回网络是否连接 true 代表连接  false 代表断开
@@ -65,7 +65,22 @@ public class ConnectivityUtility {
      */
     private static ConnectivityManager getConnectivityManager(@NonNull Context context){
         if(s_connectivityManager == null)
-            s_connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            s_connectivityManager = (ConnectivityManager)
+                    context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return s_connectivityManager;
+    }
+
+    /**
+     * @return 获得登录服务器的地址
+     */
+    public static String getSignInHost(){
+        return BASE_ADDRESS + "signIn";
+    }
+
+    /**
+     * @return 获得注册服务器的地址
+     */
+    public static String getSignUpHost(){
+        return BASE_ADDRESS + "signUp";
     }
 }

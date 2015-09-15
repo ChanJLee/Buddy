@@ -1,10 +1,22 @@
 package com.chan.buddy.utility;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Environment;
 import android.util.Log;
 
+import com.chan.buddy.R;
+import com.chan.buddy.app.BuddyApplication;
+
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 /**
  * Created by chan on 15-8-26.
@@ -68,8 +80,61 @@ public class StorageUtility {
     }
 
     static public File getImageTempFile() {
-        //File file = new File(BASE_IMAGE_TEMP_DIR, "image.jpg");
-        File file = new File(Environment.getExternalStorageDirectory(), "demo.jpg");
+        File file = new File(BASE_IMAGE_TEMP_DIR, "image.jpg");
         return file;
+    }
+
+    /**
+     * 记录某个账户的头像缓存
+     *
+     * @param id     用户名 且必须唯一
+     * @param bitmap 头像
+     * @return 头像存储的位置
+     */
+    static public String recordAvatar(String id, Bitmap bitmap) {
+        File file = new File(BASE_IMAGE_TEMP_DIR, id + ".jpeg");
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+
+        try {
+            FileOutputStream outputStream = new FileOutputStream(file);
+            outputStream.write(os.toByteArray());
+            outputStream.flush();
+            outputStream.close();
+        } catch (Exception e) {
+            return null;
+        }
+        return file.getAbsolutePath();
+    }
+
+    static public String defaultAvatar(String id) {
+        File file = new File(BASE_DIR, id + ".jpeg");
+
+        if(!file.exists()){
+            Context context = BuddyApplication.getBuddyApplicationContext();
+            InputStream is = context.getResources()
+                    .openRawResource(R.raw.ic_account_circle_grey600_48dp);
+            FileOutputStream os = null;
+            try {
+                os = new FileOutputStream(file);
+                int count = -1;
+                byte bytes[] = new byte[256];
+
+                while ((count = is.read(bytes)) != -1) {
+                    os.write(bytes, 0, count);
+                }
+            } catch (Exception e){
+                return null;
+            }finally {
+                try {
+                    if (os != null)
+                        os.close();
+                    if (is != null)
+                        is.close();
+                } catch (Exception e) {}
+            }
+        }
+        return file.getAbsolutePath();
     }
 }

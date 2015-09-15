@@ -7,12 +7,14 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chan.buddy.R;
-import com.chan.buddy.zxing.encoding.EncodingHandler;
+import com.chan.buddy.utility.QRUtility;
+import com.google.zxing.Result;
 import com.google.zxing.WriterException;
 
 /**
@@ -54,20 +56,30 @@ public class QRShowActivity extends Activity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+
+                Bitmap bitmap = null;
                 try {
-                    Bitmap bitmap = EncodingHandler.createQRCode(
+                    bitmap = QRUtility.createQRCode(
                             "http://94.05.21.09:8080/fllow?user=chan&from=yu",
                             m_sizePrev
                     );
-                    Message message = m_handler.obtainMessage();
-                    message.obj = bitmap;
-                    message.what = WHAT_QR_IMAGE;
-                    m_handler.sendMessage(message);
                 } catch (WriterException e) {
                     e.printStackTrace();
+                    return;
                 }
-            }
-        }).start();
+
+                Message message = m_handler.obtainMessage();
+                message.obj = bitmap;
+                message.what = WHAT_QR_IMAGE;
+                m_handler.sendMessage(message);
+
+                Result result = null;
+                try{
+                    result = QRUtility.decodeFromBitmap(bitmap);
+                }catch (Exception e){
+
+                }
+            }}).start();
     }
 
     public static Intent getIntent(Context context) {

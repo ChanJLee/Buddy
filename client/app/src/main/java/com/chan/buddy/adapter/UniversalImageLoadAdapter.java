@@ -6,8 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
+import com.chan.buddy.R;
 import com.chan.buddy.model.ImageLoader;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 /**
  * Created by chan on 15-9-3.
@@ -27,16 +30,10 @@ abstract public class UniversalImageLoadAdapter extends BaseAdapter{
     private Context m_context;
     /**
      * @param context 上下文
-     * @param width 用于展示图片的宽高
-     * @param height
-     * @param maxMemorySize 最大内存使用 -1 为默认配置
      */
-    public UniversalImageLoadAdapter(Context context,
-                                     int width,
-                                     int height,
-                                     int maxMemorySize){
+    public UniversalImageLoadAdapter(Context context){
         m_context = context;
-        m_imageLoader = new ImageLoader(width,height,maxMemorySize);
+        m_imageLoader = new ImageLoader();
         m_layoutInflater = LayoutInflater.from(context);
     }
 
@@ -44,12 +41,8 @@ abstract public class UniversalImageLoadAdapter extends BaseAdapter{
         return m_layoutInflater.inflate(layoutId, parent, attachToRoot);
     }
 
-    protected LayoutInflater getLayoutInflater() {
-        return m_layoutInflater;
-    }
-
-    protected Bitmap getBitmap(String fileName) {
-        return m_imageLoader.getBitmap(fileName);
+    protected void displayBitmap(String fileName,ImageView imageView) {
+        m_imageLoader.displayImage(fileName, imageView);
     }
 
     protected Context getContext() {

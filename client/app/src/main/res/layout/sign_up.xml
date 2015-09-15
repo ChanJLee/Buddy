@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingLeft="15dp"
+              android:paddingRight="15dp">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="2dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="55dp"
+            android:background="@drawable/edit_background"
+            android:layout_gravity="bottom"
+            android:id="@+id/id_item1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵称(* 必填)"
+                android:textSize="15sp"
+                android:textColor="#000"
+                android:layout_gravity="center_vertical"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="例如：何以诚"
+                android:textSize="15sp"
+                android:id="@+id/id_name_edit"
+                android:inputType="text"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="bottom"
+            android:src="@drawable/ic_account_circle_grey600_48dp"
+            android:id="@+id/id_avatar"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/edit_background"
+        android:layout_gravity="bottom"
+        android:id="@+id/id_item2"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+86(* 必填)"
+            android:textSize="15sp"
+            android:textColor="#000"
+            android:layout_gravity="center_vertical"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="你的手机号码"
+            android:textSize="15sp"
+            android:id="@+id/id_username_edit"
+            android:inputType="number"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/edit_background"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:id="@+id/id_item3">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密码(* 必填)"
+            android:textSize="15sp"
+            android:textColor="#000"
+            android:layout_gravity="center_vertical"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="支持a-z大小写字符加数字"
+            android:textSize="15sp"
+            android:id="@+id/id_password_edit"
+            android:inputType="textPassword"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:text="注册"
+        android:textSize="18sp"
+        android:textColor="#ffff"
+        android:background="@drawable/green_background"
+        android:id="@+id/id_sign_up"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="点击上面的'注册'按钮，即表示你同意《小伙伴软件许可与服务协议》"
+        android:layout_marginTop="4dp"/>
+</LinearLayout>

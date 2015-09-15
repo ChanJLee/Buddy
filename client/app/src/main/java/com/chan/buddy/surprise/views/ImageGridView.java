@@ -58,26 +58,17 @@ public class ImageGridView extends GridView {
 
                 //剩下的都是点击图片
                 //如果之前已经选过当前的项目
-                boolean hasSelected = m_prevViewHolder == viewHolder;
-                m_prevViewHolder = viewHolder;
+                boolean hasSelected = (m_prevViewHolder == viewHolder);
+                 //既然之前选过 那么这次就是取消选择 所以把标记也要滞空
 
-                final int selectedId = R.drawable.has_select;
-                final int notSelectedId = R.drawable.no_select;
+                if(m_prevViewHolder != null)
+                    m_prevViewHolder.m_selectTag.setImageResource(R.drawable.no_select);
 
-                viewHolder.m_selectTag.setImageResource(
-                        hasSelected ? notSelectedId : selectedId
-                );
-
-                //既然之前选过 那么这次就是取消选择 所以把标记也要滞空
-                if(hasSelected) m_prevViewHolder = null;
-
-                final int count = getChildCount();
-
-                for (int i = 0; i < count; ++i) {
-                    if (i == position) continue;
-                    GridLayoutAdapter.ViewHolder holder =
-                            (GridLayoutAdapter.ViewHolder) getChildAt(i).getTag();
-                    holder.m_selectTag.setImageResource(notSelectedId);
+                if(hasSelected) {
+                    m_prevViewHolder = null;
+                }else {
+                    m_prevViewHolder = viewHolder;
+                    m_prevViewHolder.m_selectTag.setImageResource(R.drawable.has_select);
                 }
 
                 if (m_onImageItemClick != null)

@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="BuddyService:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/BuddyService_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="BuddyServer/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="BuddyServer" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$USER_HOME$/mysql/mysql-connector-java-5.1.36/mysql-connector-java-5.1.36-bin.jar" />
+          <element id="file-copy" path="$USER_HOME$/android open source/服务器读取数据/commons-fileupload-1.3.1-bin/lib/commons-fileupload-1.3.1.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

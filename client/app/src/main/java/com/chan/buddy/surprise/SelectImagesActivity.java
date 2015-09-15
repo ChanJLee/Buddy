@@ -137,9 +137,7 @@ public class SelectImagesActivity extends Activity
     }
 
     private void showProgressDialog() {
-        if(m_progressDialog == null){
-            m_progressDialog = ProgressDialog.show(this, "加载图片", "加载中...");
-        }
+        m_progressDialog = ProgressDialog.show(this, "加载图片", "加载中...");
         m_progressDialog.show();
     }
 

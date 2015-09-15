@@ -19,7 +19,7 @@ public class PopupListViewAdapter extends UniversalImageLoadAdapter{
     private List<ImageFolder> m_imageFolders;
 
     public PopupListViewAdapter(Context context, List<ImageFolder> imageFolders) {
-        super(context, 10, 10, -1);
+        super(context);
         m_imageFolders = imageFolders;
     }
 
@@ -56,7 +56,9 @@ public class PopupListViewAdapter extends UniversalImageLoadAdapter{
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.m_preImageView.setImageBitmap(getBitmap(imageFolder.getFirstImage()));
+        //viewHolder.m_preImageView.setImageBitmap(getBitmap(imageFolder.getFirstImage()));
+
+        displayBitmap(imageFolder.getFirstImage(),viewHolder.m_preImageView);
         String chunks[] = imageFolder.getDir().split("/");
         viewHolder.m_titleTextView.setText(chunks[chunks.length - 1]);
         viewHolder.m_countTextView.setText("共" + imageFolder.getCount() + "张");

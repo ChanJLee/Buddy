@@ -24,7 +24,10 @@
             android:layout_height="50dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/edit_background"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:id="@+id/id_item1">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,7 +44,8 @@
                 android:layout_marginLeft="25dp"
                 android:hint="你的手机号"
                 android:textSize="15sp"
-                android:inputType="phone"/>
+                android:inputType="phone"
+                android:id="@+id/id_username"/>
         </LinearLayout>
 
         <LinearLayout
@@ -49,7 +53,9 @@
             android:layout_height="50dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/edit_background"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/id_item2">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -66,13 +72,14 @@
                 android:layout_marginLeft="25dp"
                 android:hint="填写密码"
                 android:textSize="15sp"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:id="@+id/id_password"/>
         </LinearLayout>
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:text="登录"
             android:textSize="18sp"
             android:textColor="#ffff"
