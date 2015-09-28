@@ -1,18 +1,13 @@
 package com.chan.buddy.model;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.util.LruCache;
 import android.widget.ImageView;
 
 import com.chan.buddy.R;
-import com.chan.buddy.bean.ImageFolder;
-import com.chan.buddy.utility.ImageUtility;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 import java.io.File;
-import java.net.URI;
 
 /**
  * Created by chan on 15-9-3.

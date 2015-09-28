@@ -4,4 +4,31 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="scan_text">将二维码放入框内, 即可自动扫描</string>
+
+    <string name="about">
+        小伙伴是一款开源的软件,由chan编写,目的提高校园信息互动\n
+        感谢一下开源项目:\n
+
+        CircularProgressDrawable 提供录音动画\n
+        CircleImageView 提供圆形头像支持\n
+        zxing 提供二维码扫描技术\n
+        cube 提供图片加载技术\n
+        okhttp 提供网络访问技术\n
+        百度地图 提供定位，导航技术
+    </string>
+
+    <string name="pulldown_scrollview">PulldownScrollView</string>
+    <string name="stretch_scrollview">StretchScrollView</string>
+    <string name="add_attention">加关注</string>
+    <string name="user_post">职位：产品经理</string>
+    <string name="user_book">书单：21本</string>
+    <string name="user_name">super idol 1.85</string>
+    <string name="user_des">不知道在高兴什么,你的笑容,有时候也宁可当作你在为我加油</string>
+    <string name="user_recommend_tip">TA推荐的好书</string>
+
+    <string name="location_navi">
+        你可以在此看到附近的人，同样你也会被他们看到。你在此留下的信息可以随时手动清除</string>
+    <string name="location_dialog">
+        查看附近的人功能将获取你的位置信息，你的位置信息会保留一段时间，通过列表右上角的清除功能你可以随时手动清除信息
+    </string>
 </resources>

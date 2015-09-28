@@ -37,7 +37,7 @@ public class SignInServlet extends javax.servlet.http.HttpServlet {
      */
     private void doResponse(HttpServletRequest request,HttpServletResponse response)
             throws IOException, SQLException {
-
+        response.setContentType("text/plain;charset=utf-8");
 
         BufferedReader bufferedReader = new BufferedReader(
                 new InputStreamReader(request.getInputStream())
@@ -57,16 +57,16 @@ public class SignInServlet extends javax.servlet.http.HttpServlet {
 
         UserContentResolver contentResolver = new UserContentResolver();
         ResultSet resultSet = contentResolver.query(
-                new String[]{Storage.UserColumns.PASS_WORD},
-                Storage.UserColumns.USER_NAME + "=?", new String[]{ userName });
+                new String[]{Storage.UserColumns.PASS_WORD, Storage.UserColumns.NAME},
+                Storage.UserColumns.USER_NAME + "=?", new String[]{userName});
 
         //如果获得了结果
         if (resultSet != null && resultSet.next()) {
 
             //并且密码是正确的 那么返回true
             String value = resultSet.getString(Storage.UserColumns.PASS_WORD);
-            if(passWord.equals(value)){
-                writer.write("true");
+            if (passWord.equals(value)){
+                writer.write(resultSet.getString(Storage.UserColumns.NAME));
                 return;
             }
         }

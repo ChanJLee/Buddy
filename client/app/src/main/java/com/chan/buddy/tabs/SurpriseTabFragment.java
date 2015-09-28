@@ -11,7 +11,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.chan.buddy.R;
+import com.chan.buddy.surprise.HomeActivity;
+import com.chan.buddy.surprise.PeopleNearlyNaviActivity;
 import com.chan.buddy.surprise.SendMessageActivity;
+import com.chan.buddy.surprise.ShakeActivity;
 import com.chan.buddy.zxing.activity.CaptureActivity;
 
 /**
@@ -36,10 +39,16 @@ public class SurpriseTabFragment extends Fragment
      */
     private void initView(@NonNull View view){
 
-        view.findViewById(R.id.id_surprise_item_send_message).setOnClickListener(this);
-        view.findViewById(R.id.id_surprise_item_scan).setOnClickListener(this);
-        view.findViewById(R.id.id_surprise_item_shake).setOnClickListener(this);
-        view.findViewById(R.id.id_surprise_item_nearby).setOnClickListener(this);
+        view.findViewById(R.id.id_surprise_item_send_message)
+                .setOnClickListener(this);
+        view.findViewById(R.id.id_surprise_item_scan)
+                .setOnClickListener(this);
+        view.findViewById(R.id.id_surprise_item_shake)
+                .setOnClickListener(this);
+        view.findViewById(R.id.id_surprise_item_nearby)
+                .setOnClickListener(this);
+        view.findViewById(R.id.id_surprise_item_home)
+                .setOnClickListener(this);
     }
 
     @Override
@@ -60,9 +69,16 @@ public class SurpriseTabFragment extends Fragment
             case R.id.id_surprise_item_nearby:
                 onClickNearby();
                 break;
+            case R.id.id_surprise_item_home:
+                onClickHome();
+                break;
             default:
                 break;
         }
+    }
+
+    private void onClickHome() {
+        startActivity(HomeActivity.getIntent(getContext()));
     }
 
     /**
@@ -76,30 +92,31 @@ public class SurpriseTabFragment extends Fragment
      * 用于响应点击扫一扫按钮
      */
     private void onClickScan(){
-        //startActivity(ScanQRActivity.getIntent(getContext()));
         Intent intent = CaptureActivity.getIntent(getContext());
-        startActivityForResult(intent,REQUEST_QR);
+        startActivityForResult(intent, REQUEST_QR);
     }
 
     /**
      * 用于响应点击摇一摇
      */
-    private void onClickShake(){
-
+    private void onClickShake() {
+        startActivity(ShakeActivity.getIntent(getContext()));
     }
 
     /**
      * 用于响应点击附近的人
      */
-    private void onClickNearby(){
-
+    private void onClickNearby() {
+        Intent intent = PeopleNearlyNaviActivity.getIntent(getContext());
+        startActivity(intent);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQUEST_QR && resultCode == Activity.RESULT_OK){
+        if(requestCode == REQUEST_QR &&
+                resultCode == Activity.RESULT_OK) {
             String result = data.getStringExtra(CaptureActivity.EXTRA_RESULT);
-            Toast.makeText(getContext(),result,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
         }
     }
 }

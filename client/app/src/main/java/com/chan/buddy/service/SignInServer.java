@@ -10,15 +10,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.chan.buddy.utility.ConnectivityUtility;
-import com.chan.buddy.zxing.activity.CaptureActivity;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
 
 /**
  * Created by chan on 15-9-8.
@@ -48,7 +47,7 @@ public class SignInServer extends Service {
          * warning: 这个接口是在其它线程运行的!
          */
         private interface OnSignInResponse{
-            void onSignInResponse(boolean isSuccess);
+            void onSignInResponse(boolean isSuccess,String nickName);
         }
 
         public static class ForwardOnSignInResponse implements OnSignInResponse{
@@ -58,10 +57,11 @@ public class SignInServer extends Service {
             }
 
             @Override
-            public void onSignInResponse(boolean isSuccess) {
+            public void onSignInResponse(boolean isSuccess,String nickName) {
                 Message message = m_handler.obtainMessage();
                 message.what = MESSAGE_SIGN_IN;
                 message.arg1 = isSuccess ? SIGN_IN_SUCCESS : SIGN_IN_FAILED;
+                if(isSuccess) message.obj = nickName;
                 m_handler.sendMessage(message);
             }
         }
@@ -107,7 +107,7 @@ public class SignInServer extends Service {
                         BufferedReader bufferedReader = new BufferedReader(
                                 new InputStreamReader(
                                         httpURLConnection.getInputStream()
-                                )
+                                ,Charset.forName("UTF-8"))
                         );
                         response = bufferedReader.readLine();
                         bufferedReader.close();
@@ -117,10 +117,10 @@ public class SignInServer extends Service {
                         response = "false";
                     }
 
-                    if("true".equals(response)){
-                       m_onSignInResponse.onSignInResponse(true);
-                    }else if("false".equals(response)){
-                        m_onSignInResponse.onSignInResponse(false);
+                    if("false".equals(response)){
+                        m_onSignInResponse.onSignInResponse(false,null);
+                    }else {
+                        m_onSignInResponse.onSignInResponse(true, response);
                     }
                 }
             }).start();

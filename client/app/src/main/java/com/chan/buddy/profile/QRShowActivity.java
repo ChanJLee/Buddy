@@ -7,14 +7,12 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chan.buddy.R;
 import com.chan.buddy.utility.QRUtility;
-import com.google.zxing.Result;
 import com.google.zxing.WriterException;
 
 /**
@@ -42,6 +40,7 @@ public class QRShowActivity extends Activity {
     }
 
     private void init(){
+
         TextView title = (TextView) findViewById(R.id.id_title_text_view);
         title.setText("二维码");
         findViewById(R.id.id_back_image_view).setOnClickListener(new View.OnClickListener() {
@@ -72,13 +71,6 @@ public class QRShowActivity extends Activity {
                 message.obj = bitmap;
                 message.what = WHAT_QR_IMAGE;
                 m_handler.sendMessage(message);
-
-                Result result = null;
-                try{
-                    result = QRUtility.decodeFromBitmap(bitmap);
-                }catch (Exception e){
-
-                }
             }}).start();
     }
 

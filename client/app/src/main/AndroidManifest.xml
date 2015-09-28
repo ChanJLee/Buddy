@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.chan.buddy">
 
+    <!--
+   2F:73:46:50:B1:3D:09:11:99:38:B9:C6:75:5F:0E:17:2C:D5:C2:A6;com.chan.buddy
+    -->
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,14 +13,19 @@
         android:theme="@style/AppTheme"
         android:name=".app.BuddyApplication">
 
+        <!-- 百度地图 -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="oVcIPieYSOD6Rr3TzIOOAOAY" />
+
         <!-- =================================================================================== -->
+
         <!-- 登录界面 登录界面出现时必须出现在栈顶 -->
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"  android:launchMode="singleTop">
+            android:label="@string/app_name"  android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -40,13 +49,27 @@
         <activity android:name=".surprise.SelectImagesActivity"/>
             <!-- 扫描二维码 -->
         <activity android:name=".zxing.activity.CaptureActivity"/>
+            <!-- 摇一摇 -->
+        <activity android:name=".surprise.ShakeActivity"/>
+            <!-- 个人主页 -->
+        <activity android:name=".surprise.HomeActivity"/>
+            <!-- 附近的人导航活动 -->
+        <activity android:name=".surprise.PeopleNearlyNaviActivity"/>
+            <!-- 附近的人 -->
+        <activity android:name=".surprise.PeopleNearlyActivity"/>
+
 
         <!-- profile 模块 -->
             <!-- 设置资料 -->
         <activity android:name=".profile.ProfileActivity"/>
             <!-- 展示自己的二维码 -->
         <activity android:name=".profile.QRShowActivity"/>
-
+            <!-- 设置 -->
+        <activity android:name=".profile.SettingActivity"/>
+            <!-- 关于小伙伴 -->
+        <activity android:name=".profile.AboutActivity"/>
+            <!-- 修改内容 -->
+        <activity android:name=".profile.EditTextActivity"/>
 
         <!-- =================================================================================== -->
         <!-- 更新完成时的接收器 -->
@@ -71,6 +94,15 @@
         <!-- 注册服务 -->
         <service android:name=".service.SignUpServer" android:exported="false"/>
         <!-- =================================================================================== -->
+
+        <!-- =================================================================================== -->
+        <!-- 百度地图 -->
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2"/>
+            </intent-filter>
+        </service>
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -86,6 +118,28 @@
     <uses-feature android:name="android.hardware.camera"/>
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- SDK1.5需要android.permission.GET_TASKS权限判断本程序是否为当前运行的应用? -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 这个权限用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <!-- 这个权限用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+    <!-- 用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <!-- SD卡读取权限，用户写入离线定位数据-->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
+    <!--允许应用读取低级别的系统日志文件 -->
+    <uses-permission android:name="android.permission.READ_LOGS"></uses-permission>
+
     <!-- 感谢如下开源项目 -->
         <!--
             CircularProgressDrawable
@@ -93,7 +147,7 @@
         -->
         <!--
             zxing 提供二维码功能
+            cube 提供图片加载技术
         -->
-
 
 </manifest>

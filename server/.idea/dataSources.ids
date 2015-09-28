@@ -8,7 +8,6 @@
     <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
     <schema name="" catalog="chan_database"/>
     <table name="USER" schema="" catalog="chan_database" type="TABLE">
-      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="NAME" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
       <column name="USER_NAME" sqlType="CHAR" precision="11" scale="0" nullable="false" jdbcType="1"/>
       <column name="PASS_WORD" sqlType="CHAR" precision="20" scale="0" nullable="false" jdbcType="1"/>
@@ -17,8 +16,8 @@
       <column name="AGE" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="BIRTHDAY" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
       <column name="ADDRESS" sqlType="CHAR" precision="40" scale="0" nullable="true" jdbcType="1"/>
-      <column name="SIGNATURE" sqlType="CHAR" precision="20" scale="0" nullable="true" jdbcType="1"/>
-      <primary-key name="PRIMARY" columns="ID"/>
+      <column name="SIGNATURE" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="USER_NAME"/>
     </table>
   </data-source>
 </component>

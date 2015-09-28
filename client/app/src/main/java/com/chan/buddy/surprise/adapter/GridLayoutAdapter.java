@@ -1,18 +1,12 @@
 package com.chan.buddy.surprise.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.LruCache;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.chan.buddy.R;
 import com.chan.buddy.adapter.UniversalImageLoadAdapter;
-import com.chan.buddy.utility.ImageUtility;
 
 import java.io.File;
 
@@ -48,18 +42,16 @@ public class GridLayoutAdapter extends UniversalImageLoadAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
+
         if(convertView == null) {
             convertView = createView(R.layout.select_image_item, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.m_content = (ImageView) convertView.findViewById(R.id.id_image_item);
             viewHolder.m_selectTag = (ImageView) convertView.findViewById(R.id.id_select_tag);
             convertView.setTag(viewHolder);
-        }else viewHolder = (ViewHolder) convertView.getTag();
-
-        /*
-        ViewGroup.LayoutParams layoutParams = convertView.getLayoutParams();
-        layoutParams.width = layoutParams.height =
-        convertView.setLayoutParams(layoutParams);*/
+        }else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
 
         if(position == 0){
             viewHolder.m_fileName = "";

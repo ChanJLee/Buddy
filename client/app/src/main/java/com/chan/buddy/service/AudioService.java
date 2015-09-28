@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
@@ -14,7 +13,6 @@ import android.support.annotation.Nullable;
 
 import com.chan.buddy.utility.StorageUtility;
 
-import java.io.File;
 import java.io.IOException;
 
 /**

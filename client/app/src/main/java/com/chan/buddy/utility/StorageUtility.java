@@ -3,20 +3,14 @@ package com.chan.buddy.utility;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Environment;
-import android.util.Log;
 
 import com.chan.buddy.R;
 import com.chan.buddy.app.BuddyApplication;
 
 import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 
 /**
  * Created by chan on 15-8-26.

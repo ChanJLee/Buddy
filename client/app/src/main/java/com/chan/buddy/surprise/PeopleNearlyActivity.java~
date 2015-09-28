@@ -1,0 +1,186 @@
+package com.chan.buddy.surprise;
+
+import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.support.annotation.NonNull;
+
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.radar.RadarNearbyInfo;
+import com.chan.buddy.R;
+import com.chan.buddy.service.RadarService;
+
+import java.util.List;
+
+/**
+ * Created by chan on 15-9-19.
+ */
+public class PeopleNearlyActivity extends Activity implements BDLocationListener,
+        RadarService.RadarBinder.OnNearbyResult{
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private BaiduMap m_baiduMap;
+    private MapView m_mapView;
+    private LocationClient m_locationClient;
+    private RadarService.RadarBinder m_radarBinder;
+    private boolean m_isFirstIn = true;
+    private LatLng m_location;
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private ServiceConnection m_serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            m_radarBinder = (RadarService.RadarBinder) service;
+            m_radarBinder.setOnNearbyResult(PeopleNearlyActivity.this);
+            if (m_location != null)
+                m_radarBinder.getNearPeople(m_location);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            if(m_radarBinder != null)
+                m_radarBinder.destroy();
+            m_radarBinder = null;
+        }
+    };
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.people_nearly_layout);
+
+        init();
+    }
+
+    /**
+     * 初始化
+     */
+    private void init(){
+        initBaiDuMap();
+    }
+
+    /**
+     * 初始化百度地图
+     */
+    private void initBaiDuMap(){
+        m_mapView = (MapView) findViewById(R.id.id_bai_du_map);
+        m_baiduMap = m_mapView.getMap();
+
+        m_baiduMap.setMyLocationEnabled(true);
+        m_locationClient = new LocationClient(this);
+        m_locationClient.registerLocationListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        m_mapView.onResume();
+
+        Intent intent = RadarService.getIntent(this);
+        bindService(intent, m_serviceConnection, BIND_AUTO_CREATE);
+
+        LocationClientOption option = new LocationClientOption();
+        option.setCoorType("bd09ll");
+        option.setScanSpan(0);
+        option.setLocationMode(LocationClientOption.LocationMode.Battery_Saving);
+        m_locationClient.setLocOption(option);
+        m_locationClient.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unbindService(m_serviceConnection);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        m_mapView.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        m_mapView.onDestroy();
+    }
+
+    @Override
+    public void onReceiveLocation(BDLocation bdLocation) {
+
+        if(!m_isFirstIn) return;
+
+        m_isFirstIn = false;
+        //找到我当前的位置
+        LatLng point = m_location = new LatLng(bdLocation.getLatitude(),
+                bdLocation.getLongitude());
+
+        getNearlyPeople(point);
+
+        //定义地图状态
+        MapStatus mapStatus = new MapStatus.Builder()
+                .target(point)
+                .zoom(18)
+                .build();
+
+        //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+        MapStatusUpdate mapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mapStatus);
+        //改变地图状态
+        m_baiduMap.setMapStatus(mapStatusUpdate);
+
+        //图标用来显示我的位置
+        BitmapDescriptor marker = BitmapDescriptorFactory.
+                fromResource(R.drawable.icon_marka);
+        OverlayOptions options = new MarkerOptions()
+                .icon(marker)
+                .position(point)
+                .title("我");
+
+        m_baiduMap.addOverlay(options);
+    }
+
+    /**
+     * @param context
+     * @return
+     */
+    public static Intent getIntent(@NonNull Context context) {
+        return new Intent(context, PeopleNearlyActivity.class);
+    }
+
+    private void getNearlyPeople(LatLng point) {
+        if (m_radarBinder != null)
+            m_radarBinder.getNearPeople(point);
+    }
+
+    @Override
+    public void onNearbyResult(List<RadarNearbyInfo> radarNearbyInfos) {
+        final int size = radarNearbyInfos.size();
+        for (int i = 0; i < size; ++i) {
+            RadarNearbyInfo info = radarNearbyInfos.get(i);
+            //图标用来显示我的位置
+            BitmapDescriptor marker = BitmapDescriptorFactory.
+                    fromResource(R.drawable.icon_marka);
+            OverlayOptions options = new MarkerOptions()
+                    .icon(marker)
+                    .position(info.pt)
+                    .title(info.comments);
+            m_baiduMap.addOverlay(options);
+        }
+    }
+}

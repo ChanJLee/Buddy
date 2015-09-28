@@ -3,30 +3,27 @@ package com.chan.buddy;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chan.buddy.loginInfo.LoginInfoManager;
 import com.chan.buddy.main.MainInterfaceActivity;
 import com.chan.buddy.register.SignUpActivity;
 import com.chan.buddy.service.SignInServer;
 import com.chan.buddy.utility.DialogReleaseUtility;
 
-import java.util.HashSet;
-import java.util.Set;
 import static com.chan.buddy.service.SignInServer.MESSAGE_SIGN_IN;
 import static com.chan.buddy.service.SignInServer.SIGN_IN_FAILED;
 import static com.chan.buddy.service.SignInServer.SIGN_IN_SUCCESS;
@@ -37,14 +34,15 @@ import static com.chan.buddy.service.SignInServer.SIGN_IN_SUCCESS;
 public class MainActivity extends Activity
         implements View.OnClickListener{
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    private static final String LAST_INFO = "success";
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private EditText m_userNameEditText;
     private EditText m_passwordEditText;
     private Button m_signInButton;
     private TextView m_signUpTextView;
     private SignInServer.SignInBinder m_signInBinder;
-
+    private String m_nickname;
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     private ServiceConnection m_serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -135,19 +133,10 @@ public class MainActivity extends Activity
      */
     private void recordUserInfo() {
 
-        //获得编辑对象
-        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        //获得用户名 和 密码
         final String userName = m_userNameEditText.getText().toString();
-        final String password = m_passwordEditText.getText().toString();
+        final String passWord = m_passwordEditText.getText().toString();
 
-        editor.putString(LAST_INFO, userName);
-
-        //提交修改1
-        editor.putString(userName, password);
-        editor.commit();
+        LoginInfoManager.recordLastInfo(this, userName, passWord, m_nickname);
     }
 
     private Handler m_handler = new Handler(){
@@ -165,7 +154,7 @@ public class MainActivity extends Activity
      */
     private void handleSignInMessage(Message message){
         if(message.arg1 == SIGN_IN_SUCCESS){
-            onSignInSuccess();
+            onSignInSuccess((String) message.obj);
         }else if(message.arg1 == SIGN_IN_FAILED){
             onSignInFailed();
         }
@@ -175,12 +164,6 @@ public class MainActivity extends Activity
      * 当登录失败的时候显示
      */
     private void onSignInFailed(){
-
-        //获得编辑对象
-        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(LAST_INFO,"");
-        editor.commit();
 
         DialogReleaseUtility.ButtonInfoHolder holder = new DialogReleaseUtility.ButtonInfoHolder(
                 "确定", new DialogInterface.OnClickListener() {
@@ -205,7 +188,8 @@ public class MainActivity extends Activity
     /**
      * 登录成功的时候触发
      */
-    private void onSignInSuccess(){
+    private void onSignInSuccess(String nickname) {
+        m_nickname = nickname;
         recordUserInfo();
         Intent intent = MainInterfaceActivity.getIntent(this);
         startActivity(intent);
@@ -220,19 +204,16 @@ public class MainActivity extends Activity
     }
 
     private void readLastedSignInInfo() {
-        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-        final String userName = sharedPreferences.getString(LAST_INFO, "");
+
+        final String userName = LoginInfoManager.getLastedUserName(this);
 
         if (TextUtils.isEmpty(userName)) return;
         m_userNameEditText.setText(userName);
 
-        final String passWord = sharedPreferences.getString(userName, "");
+        final String passWord = LoginInfoManager.getRecordedPassWord(this, userName);
 
         if (TextUtils.isEmpty(passWord)) return;
         m_passwordEditText.setText(passWord);
-
-        if (m_signInBinder != null)
-            m_signInBinder.signIn(userName, passWord);
     }
 
     @Override
@@ -269,5 +250,13 @@ public class MainActivity extends Activity
                     R.drawable.edit_selected : R.drawable.edit_normal;
             m_parent.setBackgroundResource(drawable);
         }
+    }
+
+    /**
+     * @param context
+     * @return
+     */
+    static public Intent getIntent(Context context) {
+        return new Intent(context, MainActivity.class);
     }
 }

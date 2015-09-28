@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.chan.buddy.R;
 import com.chan.buddy.profile.ProfileActivity;
+import com.chan.buddy.profile.SettingActivity;
 
 /**
  * Created by chan on 15-8-21.
@@ -35,6 +36,8 @@ public class ProfileTabFragment extends Fragment implements View.OnClickListener
     private void init(View contentView){
         contentView.findViewById(R.id.id_profile_item_avatar)
                 .setOnClickListener(this);
+        contentView.findViewById(R.id.id_set)
+                .setOnClickListener(this);
     }
 
     @Override
@@ -45,8 +48,15 @@ public class ProfileTabFragment extends Fragment implements View.OnClickListener
             case R.id.id_profile_item_avatar:
                 onAvatarClick();
                 break;
+            case R.id.id_set:
+                onSetClick();
+                break;
             default: break;
         }
+    }
+
+    private void onSetClick() {
+        startActivity(SettingActivity.getIntent(getContext()));
     }
 
     /**

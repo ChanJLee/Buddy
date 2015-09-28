@@ -24,8 +24,6 @@ import com.chan.buddy.utility.CameraUtility;
 import com.chan.buddy.utility.DialogReleaseUtility;
 import com.chan.buddy.utility.StorageUtility;
 
-import java.io.IOException;
-
 /**
  * Created by chan on 15-8-26.
  */

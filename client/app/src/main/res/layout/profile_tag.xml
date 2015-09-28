@@ -11,7 +11,7 @@
         android:layout_height="80dp"
         android:paddingLeft="20dp"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/activity_item_margin_top"
         android:id="@+id/id_profile_item_avatar"
         android:background="@color/fragment_item_background">
 
@@ -101,7 +101,9 @@
         android:background="@color/fragment_item_background"
         android:layout_marginTop="15dp"
         android:paddingLeft="20dp"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:id="@+id/id_set">
+
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"

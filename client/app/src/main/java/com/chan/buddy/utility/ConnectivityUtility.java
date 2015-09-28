@@ -27,6 +27,8 @@ public class ConnectivityUtility {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private static ConnectivityManager s_connectivityManager = null;
     private static final String BASE_ADDRESS = "http://192.168.1.220:8080/";
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * @param context 上下文
      * @return 返回网络是否连接 true 代表连接  false 代表断开

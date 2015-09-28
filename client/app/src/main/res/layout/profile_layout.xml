@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/activity_item_margin_top"
         android:orientation="vertical"
         android:background="@color/activity_item_background"
         android:paddingRight="10dp"
@@ -22,7 +22,9 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="45dp">
+            android:layout_height="45dp"
+            android:id="@+id/id_nick_name">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -155,7 +157,8 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="45dp">
+            android:layout_height="45dp"
+            android:id="@+id/id_signature">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

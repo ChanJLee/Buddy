@@ -79,8 +79,10 @@ public class SignUpServlet extends HttpServlet {
     private boolean register(String name,String userName,String passWord,String avatar){
         try{
             UserContentResolver contentResolver = getUserContentResolver();
-            contentResolver.insert(name,userName,passWord);
-            FileOutputStream fileOutputStream = new FileOutputStream("/home/chan/demo.png");
+            contentResolver.insert(name, userName, passWord);
+            File dir = new File("/home/chan/buddy-server/" + userName );
+            dir.mkdirs();
+            FileOutputStream fileOutputStream = new FileOutputStream(new File(dir,"avatar.png"));
             fileOutputStream.write(avatar.getBytes());
             fileOutputStream.flush();
             fileOutputStream.close();

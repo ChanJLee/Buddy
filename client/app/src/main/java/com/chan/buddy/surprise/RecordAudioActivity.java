@@ -12,16 +12,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +27,7 @@ import android.widget.Toast;
 
 import com.chan.buddy.R;
 import com.chan.buddy.magic.CircularProgressDrawable;
+import com.chan.buddy.model.SensorModel;
 import com.chan.buddy.service.AudioService;
 import com.chan.buddy.utility.DialogReleaseUtility;
 
@@ -39,9 +36,8 @@ import com.chan.buddy.utility.DialogReleaseUtility;
  */
 public class RecordAudioActivity
         extends Activity
-        implements View.OnClickListener,SensorEventListener{
+        implements View.OnClickListener,SensorModel.OnSensorEventInvoke{
 
-    private SensorManager m_sensorManager;
     public static final String EXTRA_FILE_NAME = "chan_extra_audio";
     private static final int MAX_DURATION = 3600;
     private TextView m_textView;
@@ -53,8 +49,7 @@ public class RecordAudioActivity
     private Button m_acceptButton;
     private boolean m_hasRecord = false;
     private static final long MAX_AUDIO_LENGTH = 60000;
-    private static final int THRESHOLD = 9;
-    private Sensor m_sensor;
+    private SensorModel m_sensorModel;
 
 
     private CountDownTimer m_countDownTimer = new CountDownTimer(MAX_AUDIO_LENGTH,1000) {
@@ -207,17 +202,14 @@ public class RecordAudioActivity
     }
 
     private void registerSensor() {
-        m_sensorManager = (SensorManager)
-                getSystemService(Context.SENSOR_SERVICE);
-        m_sensor = m_sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        m_sensorManager.registerListener(
-                this,
-                m_sensor,
-                SensorManager.SENSOR_DELAY_NORMAL);
+        if (m_sensorModel == null)
+            m_sensorModel = new SensorModel(this, Sensor.TYPE_ACCELEROMETER);
+        m_sensorModel.registerListener(this);
     }
 
     private void unregisterSensor(){
-        m_sensorManager.unregisterListener(this,m_sensor);
+        if(m_sensorModel != null)
+            m_sensorModel.unregisterListener();
     }
 
     private void enableSensor(){
@@ -357,10 +349,9 @@ public class RecordAudioActivity
     }
 
     @Override
-    public void onSensorChanged(SensorEvent event) {
-        int max = (int) Math.max(Math.abs(event.values[0]),Math.abs(event.values[1]));
-        if(max > THRESHOLD &&
-                m_audioServiceBind != null &&
+    public void onSensorEventInvoke(float[] values) {
+
+        if (m_audioServiceBind != null &&
                 !m_audioServiceBind.isRecording()) {
             m_audioServiceBind.playAudio(
                     m_audioServiceBind.getAudioFileName(),
@@ -369,7 +360,4 @@ public class RecordAudioActivity
             );
         }
     }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 }

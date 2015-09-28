@@ -4,18 +4,11 @@ import android.annotation.TargetApi;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
-import android.text.Editable;
 import android.text.Spannable;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.chan.buddy.R;
 import com.chan.buddy.utility.ExpressionUtility;
 
 /**

@@ -3,27 +3,22 @@ package com.chan.buddy.app;
 import android.app.Application;
 import android.content.Context;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.chan.buddy.utility.StorageUtility;
-import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.decode.BaseImageDecoder;
-import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
-import com.nostra13.universalimageloader.utils.StorageUtils;
-
-import java.io.File;
 
 /**
  * Created by chan on 15-8-20.
  * 用于初始化应用
  */
 public class BuddyApplication extends Application {
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     private static Context s_context;
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void onCreate(){
         super.onCreate();
@@ -43,6 +38,11 @@ public class BuddyApplication extends Application {
     private void init(){
         initStorage();
         initImageLoader();
+        initBaiduModel();
+    }
+
+    private void initBaiduModel(){
+        SDKInitializer.initialize(this);
     }
 
     private void initImageLoader(){

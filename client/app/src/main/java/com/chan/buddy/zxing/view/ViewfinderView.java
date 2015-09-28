@@ -16,9 +16,6 @@
 
 package com.chan.buddy.zxing.view;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -31,6 +28,9 @@ import android.view.View;
 import com.chan.buddy.R;
 import com.chan.buddy.zxing.camera.CameraManager;
 import com.google.zxing.ResultPoint;
+
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * This view is overlaid on top of the camera preview. It adds the viewfinder rectangle and partial

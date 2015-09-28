@@ -4,14 +4,9 @@ import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.SurfaceHolder;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 /**
  * Created by chan on 15-8-26.

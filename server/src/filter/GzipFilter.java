@@ -56,11 +56,9 @@ public class GzipFilter implements Filter {
                             return gzipInputStream.read();
                         }
                     };
-
                     return gzipStream;
                 } catch (Exception e) {}
             }
-
             return stream;
         }
     }

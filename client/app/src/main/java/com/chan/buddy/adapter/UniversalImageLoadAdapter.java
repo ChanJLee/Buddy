@@ -1,16 +1,13 @@
 package com.chan.buddy.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.chan.buddy.R;
 import com.chan.buddy.model.ImageLoader;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 /**
  * Created by chan on 15-9-3.

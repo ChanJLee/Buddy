@@ -33,6 +33,15 @@
         <url-pattern>/signUp</url-pattern>
     </filter-mapping>
 
+    <servlet>
+        <servlet-name>FollowServlet</servlet-name>
+        <servlet-class>follow.FollowServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>FollowServlet</servlet-name>
+        <url-pattern>/follow</url-pattern>
+    </servlet-mapping>
     <!--
 
         CREATE TABLE USER(

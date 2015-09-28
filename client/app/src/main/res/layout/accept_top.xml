@@ -7,8 +7,8 @@
                 android:background="@drawable/top1_bg">
 
     <ImageView
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:src="@drawable/back_view"
         android:id="@+id/id_back_image_view"
         android:layout_centerVertical="true"/>

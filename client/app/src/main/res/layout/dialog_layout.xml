@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="@dimen/dialog_w"
+              android:layout_height="@dimen/dialog_h"
+              android:paddingLeft="12dp"
+              android:paddingRight="12dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="提示"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/location_dialog"
+        android:textColor="#000"
+        android:textSize="16sp"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/no_checked"
+            android:id="@+id/id_check_box"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下次不再提示"
+            android:layout_marginLeft="10dp"
+            android:textColor="#000"
+            android:textSize="12sp"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="22dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:textColor="#c20c6ea3"
+            android:layout_toLeftOf="@+id/id_accept"
+            android:layout_marginRight="20dp"
+            android:id="@+id/id_cancel"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/id_accept"
+            android:text="确定"
+            android:textColor="#c20c6ea3"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+</LinearLayout>
